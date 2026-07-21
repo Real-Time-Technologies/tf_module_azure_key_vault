@@ -35,7 +35,7 @@ resource "azurerm_key_vault" "kv" {
   public_network_access_enabled = var.key_vault_config.public_network_access_enabled
 
   network_acls {
-    default_action             = var.network_acls_config.default_action
+    default_action             = "Deny"
     bypass                     = var.network_acls_config.bypass
     ip_rules                   = var.network_acls_config.ip_rules
     virtual_network_subnet_ids = var.network_acls_config.virtual_network_subnet_ids
