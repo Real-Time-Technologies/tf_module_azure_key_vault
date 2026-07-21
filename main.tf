@@ -1,4 +1,3 @@
-//noinspection MissingModule
 module "common_tags" {
   source            = "git::https://github.com/Real-Time-Technologies/tf_module_azure_common_tags.git"
   business_partner  = var.business_partner
@@ -34,6 +33,13 @@ resource "azurerm_key_vault" "kv" {
   purge_protection_enabled      = var.key_vault_config.purge_protection_enabled
   enable_rbac_authorization     = var.key_vault_config.enable_rbac_authorization
   public_network_access_enabled = var.key_vault_config.public_network_access_enabled
+
+  network_acls {
+    default_action             = var.network_acls_config.default_action
+    bypass                     = var.network_acls_config.bypass
+    ip_rules                   = var.network_acls_config.ip_rules
+    virtual_network_subnet_ids = var.network_acls_config.virtual_network_subnet_ids
+  }
 
   tags = module.common_tags.common_tags
 

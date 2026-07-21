@@ -62,3 +62,20 @@ variable "key_vault_config" {
     public_network_access_enabled = bool
   })
 }
+
+variable "network_acls_config" {
+  description = "Network ACL configuration for the Key Vault. Default denies all traffic except Azure services."
+  type = object({
+    default_action             = string
+    bypass                     = list(string)
+    ip_rules                   = optional(list(string), [])
+    virtual_network_subnet_ids = optional(list(string), [])
+  })
+  default = {
+    default_action             = "Deny"
+    bypass                     = ["AzureServices"]
+    ip_rules                   = []
+    virtual_network_subnet_ids = []
+  }
+}
+
